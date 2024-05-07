@@ -46,8 +46,6 @@ dfTotalMemMonths.write.mode("overwrite")
 
 
 /********Case 2***********************************************************************************************************************************************/
-//Given the two datasets, calculate the total number of member months per member per year. 
-//The resulting set should contain the member's ID, the month, and total number of member months. Output the result set in json.
 val dfMonthsPerYear=dfMemMonths
 .withColumn("effective_member_year",year($"eligiblity_effective_date"))
 .withColumn("member_month",month($"eligiblity_effective_date"))
@@ -61,9 +59,8 @@ val dfTotalMonthsPerYear=dfMonthsPerYear
 
 val finaldf = dfTotalMonthsPerYear.select("member_id","eligibility_member_month","total_mem_months_per_year")
 
-finaldf.show()
 //Save to JSON File
-dfTotalMemMonths.write.mode("overwrite")
+finaldf.write.mode("overwrite")
   .partitionBy("member_id")
   .json("/FileStore/citi_usecase_provider_report/total_months_per_year/")
 /********End of Case2 *****************************************************************************************************************************/
