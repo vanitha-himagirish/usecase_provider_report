@@ -61,7 +61,6 @@ val finaldf = dfTotalMonthsPerYear.select("member_id","eligibility_member_month"
 
 //Save to JSON File
 finaldf.write.mode("overwrite")
-  .partitionBy("member_id")
   .json("/FileStore/citi_usecase_provider_report/total_months_per_year/")
 /********End of Case2 *****************************************************************************************************************************/
 
